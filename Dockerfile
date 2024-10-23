@@ -1,17 +1,11 @@
-# Usa una imagen base de Node.js
-FROM node:18-alpine
+# Usa la imagen oficial de Apache (httpd)
+FROM httpd:2.4
 
-# Instala `serve`, una herramienta ligera para servir archivos estáticos
-RUN npm install -g serve
+# Copia los archivos HTML al directorio donde Apache sirve contenido
+COPY ./public-html/ /usr/local/apache2/htdocs/
 
-# Establece el directorio de trabajo
-WORKDIR /app
+# Copia un archivo de configuración personalizado para exponer ambos puertos
+COPY ./httpd.conf /usr/local/apache2/conf/httpd.conf
 
-# Copia el contenido del HTML a la carpeta /app
-COPY . .
-
-# Expone el puerto que usará `serve`
-EXPOSE 8080
-
-# Comando para servir los archivos estáticos
-CMD ["serve", "-s", ".", "-l", "8080"]
+# Expone los puertos 80 y 8080
+EXPOSE 80 8080
