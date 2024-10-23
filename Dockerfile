@@ -1,11 +1,17 @@
-# Usa una imagen base de nginx
-FROM nginx:alpine
+# Usa una imagen base de Node.js
+FROM node:18-alpine
 
-# Copia tu archivo HTML a la ubicación estándar de Nginx
-COPY index.html /usr/share/nginx/html/
+# Instala `serve`, una herramienta ligera para servir archivos estáticos
+RUN npm install -g serve
 
-# Expone el puerto 80 para que el contenedor sirva el sitio web
-EXPOSE 80
+# Establece el directorio de trabajo
+WORKDIR /app
 
-# Comando por defecto que ejecuta Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Copia el contenido del HTML a la carpeta /app
+COPY . .
+
+# Expone el puerto que usará `serve`
+EXPOSE 8080
+
+# Comando para servir los archivos estáticos
+CMD ["serve", "-s", ".", "-l", "8080"]
