@@ -1,4 +1,4 @@
-FROM node:14
+FROM node:18 as build
 
 WORKDIR /app
 
@@ -10,8 +10,10 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 5173
+FROM nginx:alpine
 
-ENV PORT 5173
+COPY --from=build /app/build /usr/share/nginx/html
 
-CMD ["npm", "start"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
