@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0.5rem;
   text-align: center;
 }
 
@@ -16,6 +16,28 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.questContainer { 
+  min-width: 360px;
+ 
+   
+}
+
+.questQuestion {
+
+}
+
+.questAnswer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  line-height: 28px;
+}
+
+.questAnswer > label {
+  
+  text-align: start;
 }
 
 @keyframes logo-spin {

@@ -4,6 +4,8 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import {data} from "./data/data.js"
 import {Context} from "./context/context.jsx"
+import Header from "./components/header.jsx"
+
 
 const App = () => {
   
@@ -150,7 +152,7 @@ const App = () => {
   useEffect(() => {
     if(endQuestion) {
       console.log("ended")
-      alert(JSON.stringify(globalForm, null, 2))
+      console.log(JSON.stringify(globalForm, null, 2))
     }
   }, [endQuestion]);
 
@@ -188,7 +190,7 @@ const App = () => {
       {/* {console.log(node.OutlineLevel, node.OutlineNumber, node.Name)} */}
       {(checkStart(node.OutlineNumber) && checkLevel(node.OutlineLevel)) &&
        
-      <div>
+      <>
       {/* {console.log(node.OutlineLevel, node.OutlineNumber, node.Name, currentOutlineNumber)} */}
      
         {/* {node.children.length > 0 ?  */}
@@ -197,9 +199,12 @@ const App = () => {
         {node.OutlineLevel == currentOutlineLevel ? 
          <>
          {handleCurrentQuestions(node)}
-         {console.log("currentQuestions", currentQuestions)}
+         {/* {console.log("currentQuestions", currentQuestions)} */}
          {node.OutlineNumber == currentQuestions[0].OutlineNumber ?
-          <h2>{"("}{node.OutlineLevel}{")"} {node.Name}</h2>
+          /* {node.OutlineLevel}  */
+          <div className="questQuestion">
+          <h2>{node.Name}</h2>
+          </div>
           :
           <>
           </>
@@ -207,7 +212,7 @@ const App = () => {
          </>
           : 
           node.OutlineNumber.startsWith(currentQuestions[0].OutlineNumber) ?
-          <div style={{display:"flex", justifyContent:"flex-start", alignItems:'center', height:"28px"}}>
+          <div className="questAnswer">
           {handleCurrentOptions(node)}
           
           <input style={{color:"white", display:'flex'  }}
@@ -224,7 +229,7 @@ const App = () => {
           </>
           
        }
-       </div>
+       </>
       }
 
         {/* <p><strong>Outline Number:</strong> {node.OutlineNumber}
@@ -247,8 +252,9 @@ const App = () => {
 
   return (
     <>
+    <Header/>
     {!endQuestion ? 
-      <>
+      <div className='questContainer'>
         {questions.length > 0 && 
             <>
             {questions.map((node) => (
@@ -257,11 +263,13 @@ const App = () => {
             ))}
             </>
         }
-        <button style={{marginTop: "12px"}} onClick={() => onClickContinue()}> Continue </button>
-      </>
+        <button style={{marginTop: "14px"}} onClick={() => onClickContinue()}> Continue </button>
+      </div>
      :
       <>
         <h3>Tree finished</h3>
+        <button style={{marginTop: "14px"}} onClick={() => window.location.reload()}> Restart </button>
+
       </>
     }
     </>
