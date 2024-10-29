@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import {data} from "./data/data.js"
 import {Context} from "./context/context.jsx"
-import Header from "./components/header.jsx"
+import Header from "./components/headex.jsx"
 
 
 const App = () => {
