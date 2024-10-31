@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
-import { initialState } from "../data/data";
+// import { initialState } from "../data/data";
 export const Context = createContext();
 
 export const ContextProvider = (props) => {
     
-    const [globalForm, setGlobalForm ]= useState(initialState)
+    const [globalForm, setGlobalForm ]= useState({})
 
     const handleChangeForm = (key, value) => { 
         // console.log(key, value)
@@ -14,11 +14,17 @@ export const ContextProvider = (props) => {
           }));
     }
 
+    const handleSubmit = () => {
+        console.log("finalForm", JSON.stringify(globalForm, null, 2))
+      
+    }
+
     return (
         <Context.Provider
             value={{
                 globalForm, 
-                handleChangeForm
+                handleChangeForm, 
+                handleSubmit
             }}
         >
             {props.children}
